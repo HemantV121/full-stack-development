@@ -1,0 +1,73 @@
+kafka:
+  topic: order-events
+auth:
+  jwtSecret: fsyfashvagsuygsqagjhabsmbqw231t67512736teuqbk32t3781
+  jwtExpirationMs: 300
+
+
+server:
+  port: 8080
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:30092
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_USER:admin}:${MONGO_PASSWORD:admin}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}/${MONGO_DATABASE:stocks_db}?authSource=admin
+
+
+
+resilience4j:
+  retry:
+    instances:
+      stock-service:
+        max-attempts: 3
+        wait-duration: 1s
+    retry-aspect-order: 2
+  circuitbreaker:
+    circuit-breaker-aspect-order: 1
+    instances:
+      stock-service:
+        register-health-indicator: true
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 1
+        automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-type: count_based
+
+  ratelimiter:
+    instances:
+       stock-service:
+        limit-for-period: 10
+        limit-refresh-period: 60s
+        timeout-duration: 0
+        register-health-indicator: true
+
+  bulkhead:
+    instances:
+      stock-service:
+        max-concurrent-calls: 5
+        max-wait-duration: 100ms
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+
+  tracing:
+    sampling:
+      probability: 1.0

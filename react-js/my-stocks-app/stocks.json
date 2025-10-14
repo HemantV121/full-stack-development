@@ -1,0 +1,40 @@
+{
+  "stocks": [
+    {
+      "id": "4",
+      "name": "Amazon",
+      "price": "4000",
+      "companyName": "Amazon.com, Inc."
+    },
+    {
+      "id": "5",
+      "name": "Facebook",
+      "price": "400",
+      "companyName": "Meta Platforms, Inc."
+    },
+    {
+      "id": "6",
+      "name": "Tesla",
+      "price": 700,
+      "companyName": "Tesla, Inc."
+    },
+    {
+      "id": "7",
+      "name": "Netflix",
+      "price": 590,
+      "companyName": "Netflix, Inc."
+    },
+    {
+      "id": "8",
+      "name": "NVIDIA",
+      "price": 220,
+      "companyName": "NVIDIA Corporation"
+    },
+    {
+      "id": "8694",
+      "name": "TATASTEEL",
+      "companyName": "Tata Steel Ltd",
+      "price": "100"
+    }
+  ]
+}

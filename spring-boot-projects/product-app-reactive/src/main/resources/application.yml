@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      username: ramanuj
+      password: password
+      host: localhost
+      database: product_db
+      port: 27017
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    metrics:
+      access: unrestricted
+    env:
+      access: unrestricted
+
+  health:
+    mongo:
+      enabled: true
